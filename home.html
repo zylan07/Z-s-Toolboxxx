@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Z's Toolboxxx - Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ff9d'><path d='M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm2 2v14h14V5H5zm4 4h8v2H9V9z'/></svg>">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="nav-brand">
+    <i class="ri-terminal-box-line"></i>
+    <span>Z's Toolboxxx</span>
+  </div>
+  <button id="menuToggleBtn" class="menu-toggle"><i class="ri-menu-line"></i></button>
+</nav>
+
+<div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-header" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:10px; margin-bottom:10px;">
+    <span style="color:var(--primary); font-weight:bold;">MENU</span>
+    <button id="closeSidebarBtn" style="background:none; border:none; color:var(--text-main); font-size:1.5rem; cursor:pointer;"><i class="ri-close-line"></i></button>
+  </div>
+  
+  <button id="themeToggleBtn" class="side-btn"><i class="ri-contrast-drop-line"></i> Toggle Theme</button>
+  <button id="historyBtn" class="side-btn"><i class="ri-file-list-3-line"></i> View History</button>
+  <button id="downloadPdfBtn" class="side-btn"><i class="ri-download-2-line"></i> Export PDF</button>
+  <button id="resetAppBtn" class="side-btn danger"><i class="ri-refresh-line"></i> Reset App</button>
+  <div style="flex-grow:1"></div>
+  <button id="logoutBtn" class="side-btn"><i class="ri-shut-down-line"></i> Logout</button>
+</aside>
+
+<main class="dashboard-container">
+  
+  <div class="section-header">
+    <h2 class="glitch" data-text="SYSTEM: ONLINE">SYSTEM: ONLINE</h2>
+    <p>USER: <span id="displayUserName" style="color:var(--primary)">...</span> // ACCESS LEVEL: ADMIN</p>
+</div>
+
+  <div class="calculator-grid">
+    
+    <div class="tool-card" data-calculator="ai" style="border-color: var(--accent);">
+      <div class="card-icon" style="color: var(--accent);"><i class="ri-cpu-line"></i></div>
+      <h3>AI Core</h3>
+      <p>Gemini Intelligence</p>
+    </div>
+
+    <div class="tool-card" data-calculator="matrix">
+      <div class="card-icon"><i class="ri-grid-fill"></i></div>
+      <h3>Matrix</h3>
+      <p>Adv. Linear Algebra</p>
+    </div>
+
+    <div class="tool-card" data-calculator="truth">
+      <div class="card-icon"><i class="ri-toggle-line"></i></div>
+      <h3>Truth Table</h3>
+      <p>Boolean Logic</p>
+    </div>
+
+    <div class="tool-card" data-calculator="morse">
+      <div class="card-icon"><i class="ri-broadcast-line"></i></div>
+      <h3>Morse RX/TX</h3>
+      <p>Signal Decode</p>
+    </div>
+
+    <div class="tool-card" data-calculator="unit">
+      <div class="card-icon"><i class="ri-ruler-2-line"></i></div>
+      <h3>Converter</h3>
+      <p>Metric / Imperial</p>
+    </div>
+
+    <div class="tool-card" data-calculator="currency">
+      <div class="card-icon"><i class="ri-money-dollar-circle-line"></i></div>
+      <h3>Forex</h3>
+      <p>Live Rates</p>
+    </div>
+
+    <div class="tool-card" data-calculator="qrcode">
+      <div class="card-icon"><i class="ri-qr-code-line"></i></div>
+      <h3>QR Encoder</h3>
+      <p>Text to Data</p>
+    </div>
+
+    <div class="tool-card" data-calculator="aspect">
+      <div class="card-icon"><i class="ri-crop-line"></i></div>
+      <h3>Aspect Ratio</h3>
+      <p>Screen Res</p>
+    </div>
+
+    <div class="tool-card" data-calculator="tip">
+      <div class="card-icon"><i class="ri-group-line"></i></div>
+      <h3>Splitter</h3>
+      <p>Bill Allocation</p>
+    </div>
+
+    <div class="tool-card" data-calculator="dob">
+      <div class="card-icon"><i class="ri-cake-line"></i></div>
+      <h3>Age Calc</h3>
+      <p>Years Alive</p>
+    </div>
+
+  </div>
+</main>
+
+<div id="modalContainer" class="modal-overlay">
+  <div class="glass-modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">TOOL</h2>
+      <button id="modalClose" class="modal-close-btn"><i class="ri-close-line"></i></button>
+    </div>
+    <div id="modalBody" class="modal-body"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
